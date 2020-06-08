@@ -1,3 +1,8 @@
 body {
     font-size: 20px;
 }
+
+.tree span:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
