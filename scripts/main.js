@@ -1,7 +1,9 @@
 "use strict"
 
 const treeId = 'tree';
+const formId = 'newFileForm';
 let tree = document.getElementById(treeId);
+let form = document.getElementById(formId);
 
 hideChildrenUL(tree);
 //оборачиваем весь текст в li span'ами
@@ -17,6 +19,79 @@ function hideChildrenUL(elem) {
         children.hidden = true;
 }
 
+// добавление файла в дерево.
+function addFile() {
+    const path = document.getElementById('pathInput');
+    let foldersPath = path.value.split('/');
+    for (let i = 0; i < foldersPath.length - 1; i++) {
+        if (foldersPath[i].indexOf('.') >= 0) {
+            alert('Ошибка: Файл не может содержаться в другом файле.');
+            return;
+        }
+    }
+    if (foldersPath[foldersPath.length-1].indexOf('.') == foldersPath[foldersPath.length-1].length-1) {
+        alert('Расширение файла не должно быть пустым.');
+        return;
+    }
+
+    createFile(tree, foldersPath);
+}
+
+// проверка на существование, если есть, то возвращается li
+function isFileExists(ul, filename) {
+    for (let li of ul.querySelectorAll('li')) {
+        if (li.querySelector('span') && 
+            li.querySelector('span').textContent == filename)
+            return li;
+    }   
+    return null;
+}
+
+// получение ul внутри ul по name, если такого нет, то он создается
+function getUlByName(ul, name) {
+    let targetLi = isFileExists(ul, name)
+    if (targetLi) {
+        let newUl = targetLi.querySelector('ul')
+            if (newUl)
+                return newUl;
+            newUl = document.createElement('ul');
+            targetLi.append(newUl);
+            return newUl;
+    }
+    
+    let newLi = document.createElement('li');
+    let span = document.createElement('span');
+    span.textContent = name;
+    newLi.append(span);
+    ul.append(newLi);
+    let newUl = document.createElement('ul');
+    newLi.append(newUl);
+    return newUl;
+}
+
+// создание файла в пути
+function createFile(ul, path) {
+    let ptr = ul;
+    for (let i = 0; i < path.length-1; i++) {
+        const element = path[i];
+        ptr = getUlByName(ptr, element);
+    }
+    if (!isFileExists(ptr, path[path.length-1])) {
+        let newLi = document.createElement('li');
+        let span = document.createElement('span');
+        span.textContent = path[path.length-1];
+        newLi.append(span);
+        ptr.append(newLi);
+    }
+    
+    
+}
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    addFile();
+})
+
 tree.addEventListener('click', (e) => {
     if (e.target.tagName === 'SPAN') {
         let children = e.target.parentNode.querySelector('ul');
@@ -24,10 +99,8 @@ tree.addEventListener('click', (e) => {
                 let isHiding = !children.hidden;
                 children.hidden = isHiding;
                 // если прячем, то прячем все внутренние.
-                if (isHiding) {
+                if (isHiding) 
                     hideChildrenUL(children);
-                }
-                
             }
     }
 })
