@@ -21,8 +21,17 @@ function hideChildrenUL(elem) {
 
 // добавление файла в дерево.
 function addFile() {
-    const path = document.getElementById('pathInput');
-    let foldersPath = path.value.split('/');
+    const value = document.getElementById('pathInput').value;
+    if (value.length == 0) {
+      alert('Ошибка! Путь не введён.');
+      retrun;
+    }
+    if (value[0] != '/') {
+      alert('Ошибка! Путь должен начинаться с \'/\'');
+      return;
+    }
+
+    let foldersPath = value.split('/');
     for (let i = 0; i < foldersPath.length - 1; i++) {
         if (foldersPath[i].indexOf('.') >= 0) {
             alert('Ошибка: Файл не может содержаться в другом файле.');
@@ -40,10 +49,10 @@ function addFile() {
 // проверка на существование, если есть, то возвращается li
 function isFileExists(ul, filename) {
     for (let li of ul.querySelectorAll('li')) {
-        if (li.querySelector('span') && 
-            li.querySelector('span').textContent == filename)
+        let span = li.querySelector('span');
+        if (span && span.textContent.trim() == filename)
             return li;
-    }   
+    }
     return null;
 }
 
@@ -58,7 +67,7 @@ function getUlByName(ul, name) {
             targetLi.append(newUl);
             return newUl;
     }
-    
+
     let newLi = document.createElement('li');
     let span = document.createElement('span');
     span.textContent = name;
@@ -72,7 +81,7 @@ function getUlByName(ul, name) {
 // создание файла в пути
 function createFile(ul, path) {
     let ptr = ul;
-    for (let i = 0; i < path.length-1; i++) {
+    for (let i = 1; i < path.length-1; i++) {
         const element = path[i];
         ptr = getUlByName(ptr, element);
     }
@@ -83,8 +92,6 @@ function createFile(ul, path) {
         newLi.append(span);
         ptr.append(newLi);
     }
-    
-    
 }
 
 form.addEventListener('submit', (e) => {
@@ -99,9 +106,8 @@ tree.addEventListener('click', (e) => {
                 let isHiding = !children.hidden;
                 children.hidden = isHiding;
                 // если прячем, то прячем все внутренние.
-                if (isHiding) 
+                if (isHiding)
                     hideChildrenUL(children);
             }
     }
 })
-
