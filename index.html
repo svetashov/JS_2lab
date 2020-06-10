@@ -9,45 +9,48 @@
 </head>
 <body>
 
-    <form id="newFileForm">
-      <label for="pathInput">Добавить новый файл</label>
-      <input id="pathInput" type="text" placeholder="Путь к файлу...">
-      <input type="submit" value="Добавить">
-    </form>
+    <div class="container">
+      <h1>Pentagon mainframe</h1>
+      <form id="newFileForm">
+        <p>Добавить новый файл</p>
+        <input id="pathInput" class="pathInput" type="text" placeholder="Путь к файлу...">
+        <input type="submit" class="pathInput" value="Добавить">
+      </form>
+      <ul class="tree" id="tree">
+          <li>Homework
+            <ul>
+              <li>math
+                <ul>
+                  <li>elsa_jean.mp4</li>
+                  <li>lana_rhoades.mp4</li>
+                </ul>
+              </li>
+              <li>english
+                <ul>
+                  <li>johny_sins.mp4</li>
+                  <li>stepsister_stucked.mov</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>Documents
+            <ul>
+              <li>university
+                <ul>
+                  <li>session.docx</li>
+                  <li>exams.docx</li>
+                </ul>
+              </li>
+              <li>work
+                <ul>
+                  <li>staff.xls</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+    </div>
 
-    <ul class="tree" id="tree">
-        <li>Homework
-          <ul>
-            <li>math
-              <ul>
-                <li>elsa_jean.mp4</li>
-                <li>lana_rhoades.mp4</li>
-              </ul>
-            </li>
-            <li>english
-              <ul>
-                <li>johny_sins.mp4</li>
-                <li>stepsister_stucked.mov</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>Documents
-          <ul>
-            <li>university
-              <ul>
-                <li>session.docx</li>
-                <li>exams.docx</li>
-              </ul>
-            </li>
-            <li>work
-              <ul>
-                <li>staff.xls</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
 
 
 </body>
