@@ -2,6 +2,14 @@ body {
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
     color: #333333;
+    background: url('../src/bg.gif');
+    margin: 0;
+}
+
+input {
+  color: #2acb20;
+  background-color: #000000;
+  border-color: #666666;
 }
 
 .tree {
@@ -14,4 +22,32 @@ body {
 .tree span:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.container {
+  margin: 40px auto;
+  width: 800px;
+  background-color: #333333;
+  border-radius: 6px;
+  color: #2acb20;
+  padding: 20px;
+}
+
+.container h1 {
+  text-align: center;
+}
+
+.container p {
+  margin: 0;
+}
+
+.pathInput {
+  margin-top: 5px;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 20px;
+}
+
+#pathInput {
+  width: 500px;
 }
