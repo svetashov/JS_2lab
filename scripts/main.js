@@ -24,7 +24,7 @@ function addFile() {
     const value = document.getElementById('pathInput').value;
     if (value.length == 0) {
       alert('Ошибка! Путь не введён.');
-      retrun;
+      return;
     }
     if (value[0] != '/') {
       alert('Ошибка! Путь должен начинаться с \'/\'');
